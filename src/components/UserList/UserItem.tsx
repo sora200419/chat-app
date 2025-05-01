@@ -37,17 +37,18 @@ const UserItem: React.FC<UserItemProps> = ({
 
   return (
     <div
-      className={`flex items-center p-3 border-b cursor-pointer hover:bg-gray-100 transition-colors duration-200 ${isSelected ? 'bg-gray-100' : ''}`}
+      className={`flex items-center py-2 px-3 border-b cursor-pointer hover:bg-gray-100 transition-colors duration-200 ${isSelected ? 'bg-gray-100' : ''}`}
       onClick={() => onClick(id)}    
     >
-      <div className='relative'>
+      <div className='relative mr-3'>
         {avatar ? (
           <img 
             src={avatar} 
             alt={displayName} 
-            className='w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm'          />
+            className='w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm'
+          />
         ) : (
-          <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-medium">
+          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-medium">
             {initials}
           </div>
         )}
@@ -55,14 +56,14 @@ const UserItem: React.FC<UserItemProps> = ({
           <div className='absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white'></div>
         )}
       </div>
-      <div className='ml-3 flex-1'>
-        <div className='flex justify-between'>
-          <h3 className='font-medium text-gray-900'>{displayName}</h3>
-          <span className='text-xs text-gray-500'>{timestamp}</span>
+      <div className='flex-1 min-w-0'>
+        <div className='flex justify-between items-center'>
+          <h3 className='font-medium text-gray-900 text-sm truncate'>{displayName}</h3>
+          <span className='text-xs text-gray-500 ml-2 flex-shrink-0'>{timestamp}</span>
         </div>
         <div className='flex justify-between items-center'>
-          <p className='text-sm text-gray-500 truncate max-w-[180px]'>{lastMessage || status || 'No messages yet'}</p>
-          <div className="flex items-center">
+          <p className='text-xs text-gray-500 truncate'>{lastMessage || status || 'No messages yet'}</p>
+          <div className="flex items-center ml-2 flex-shrink-0">
             {unreadCount > 0 && (
               <span className="bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center mr-1">
                 {unreadCount}

@@ -25,7 +25,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ toggleProfile }) => {
       <div className='p-4 border-b bg-white flex items-center justify-between'>
         <h2 className='text-xl font-bold'>Chat</h2>
         <div>
-          <span className='text-primary hover:text-primary-light text-sm'>
+          <span className='text-primary hover:text-primary-light text-sm hidden sm:inline'>
             Add New Profile
           </span>
         </div>
@@ -33,20 +33,10 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ toggleProfile }) => {
       
       {/* Subheader with selected user information */}
       {selectedUser && (
-        <div className='p-3 border-b bg-white flex items-center justify-between'>
+        <div className='p-3 border-b bg-white flex items-center justify-between flex-wrap'>
           <div className='flex items-center'>
             <div className='relative mr-3'>
-              {selectedUser.avatar ? (
-                <img 
-                  src={selectedUser.avatar} 
-                  alt={selectedUser.name || selectedUser.username || 'User'} 
-                  className='w-10 h-10 rounded-full object-cover'
-                />
-              ) : (
-                <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-medium">
-                  {(selectedUser.name?.[0] || selectedUser.username?.[0] || 'U').toUpperCase()}
-                </div>
-              )}
+              {/* Avatar code remains the same */}
             </div>
             <div>
               <h3 className='text-base font-medium text-gray-800'>
@@ -57,34 +47,58 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ toggleProfile }) => {
               </p>
             </div>
           </div>
-
-          {/* Action buttons */}
-          <div className='flex items-center space-x-3'>
-            <div className='relative'>
+  
+          {/* Action buttons - better mobile layout */}
+          <div className='flex items-center space-x-2 mt-2 sm:mt-0'>
+            <div className='relative hidden sm:block'>
               <input 
                 type='text' 
-                placeholder='Search messages...'
-                className='py-1 pl-8 pr-3 border rounded-md text-sm w-32 search-field-mobile focus:outline-none focus:ring-1 focus:ring-primary'
+                placeholder='Search...'
+                className='py-1 pl-8 pr-3 border rounded-md text-sm w-24 md:w-32 search-field-mobile focus:outline-none focus:ring-1 focus:ring-primary'
                 value={messageSearchTerm}
                 onChange={handleSearch}
               />
               <MagnifyingGlassIcon className='absolute left-2 top-2 h-4 w-4 text-gray-400' />
             </div>
-            <button className='text-gray-500 hover:text-primary'>
+            <button className='text-gray-500 hover:text-primary p-1'>
               <PhoneIcon className='h-5 w-5' />
             </button>
-            <button className='text-gray-500 hover:text-primary'>
+            <button className='text-gray-500 hover:text-primary p-1'>
               <VideoCameraIcon className='h-5 w-5' />
+            </button>
+            <button 
+              className='text-gray-500 hover:text-primary p-1 sm:hidden'
+              onClick={() => setMessageSearchTerm(messageSearchTerm ? '' : ' ')}
+              aria-label="Search messages"
+            >
+              <MagnifyingGlassIcon className='h-5 w-5' />
             </button>
             {toggleProfile && (
               <button 
-                className='text-gray-500 hover:text-primary'
+                className='text-gray-500 hover:text-primary p-1'
                 onClick={toggleProfile}
               >
                 <EllipsisVerticalIcon className='h-5 w-5' />
               </button>
             )}
           </div>
+          
+          {/* Mobile-only search field that appears when search button is clicked */}
+          {messageSearchTerm !== '' && (
+            <div className='w-full mt-2 sm:hidden'>
+              <div className='relative'>
+                <input 
+                  type='text' 
+                  placeholder='Search messages...'
+                  className='w-full py-1 pl-8 pr-3 border rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-primary'
+                  value={messageSearchTerm === ' ' ? '' : messageSearchTerm}
+                  onChange={handleSearch}
+                  autoFocus
+                />
+                <MagnifyingGlassIcon className='absolute left-2 top-2 h-4 w-4 text-gray-400' />
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

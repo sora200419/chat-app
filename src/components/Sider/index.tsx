@@ -29,7 +29,7 @@ const SidebarIcon: React.FC<SidebarIconProps> = ({ icon, tooltip, isText }) => (
 
 const Sider: React.FC = () => {
   return (
-    <div className="fixed top-0 left-0 h-screen w-16 flex flex-col bg-primary text-white shadow-lg">
+    <div className="h-full w-16 flex flex-col bg-primary text-white shadow-lg">
       <div className="flex items-center justify-center h-16 w-16">
         <div className="text-2xl font-bold">C</div>
       </div>

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+
+:root {
+  --color-primary: #6234b3; /* Adjust to match sample UI purple */
+  --color-primary-light: #7c3aed;
+}
+
+
+/* ===== COMMON STYLES (ALL DEVICES) ===== */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,18 +19,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom utility classes */
-.sidebar-icon {
-  @apply flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto rounded-full 
-  hover:bg-white hover:text-primary transition-all duration-300 ease-linear cursor-pointer;
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-.sidebar-tooltip {
-  @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
-  text-white bg-gray-900 text-xs font-bold transition-all duration-100 
-  scale-0 origin-left;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
+::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
+}
+
+/* Message styling */
 .chat-message {
   @apply p-3 rounded-lg shadow-sm;
   max-width: 80%;
@@ -43,7 +59,6 @@ body {
   border-top-left-radius: 4px;
 }
 
-/* Style for timestamps */
 .message-timestamp {
   font-size: 0.65rem;
   margin-top: 2px;
@@ -64,29 +79,176 @@ body {
   min-width: 2rem;
 }
 
-/* Chat header styling */
-.chat-header {
-  padding: 12px 16px;
+/* User list items should be more compact */
+.user-item-compact {
+  @apply py-1.5 px-3;
 }
 
-/* Mobile-specific styles */
+/* Reduce gaps between sections */
+.no-gap-container > * + * {
+  margin-top: 0;
+}
+
+/* ===== DESKTOP/WEB VERSION STYLES ===== */
+@media (min-width: 1024px) {
+  /* Sidebar styling */
+  .sidebar-icon {
+    @apply flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto rounded-full 
+    hover:bg-white hover:text-primary transition-all duration-300 ease-linear cursor-pointer;
+  }
+  
+  .sidebar-tooltip {
+    @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
+    text-white bg-gray-900 text-xs font-bold transition-all duration-100 
+    scale-0 origin-left;
+  }
+  
+  /* Height control for main sections */
+  .chat-section {
+    height: auto !important;
+  }
+  
+  /* Fix for contact list and groups layout in web version */
+  .contact-list-container {
+    height: auto !important;
+    overflow: hidden;
+  }
+  
+  .contact-list-scrollable {
+    max-height: 250px !important;
+  }
+  
+  .groups-container {
+    height: auto !important;
+  }
+  
+  .groups-scrollable {
+    max-height: 180px !important;
+  }
+  
+  /* Compact styling for web version */
+  .user-item-web {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  
+  /* Eliminate excess space */
+  .no-extra-space {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Adjust layout for web version */
+  .web-auto-height {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  
+  .web-flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .web-flex-item {
+    flex-shrink: 0;
+  }
+  
+  /* Force components to be compact */
+  .web-compact-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  
+  /* Make action buttons more compact */
+  .action-buttons-compact {
+    padding: 0.5rem !important;
+  }
+  
+  /* Decrease padding throughout */
+  .reduce-padding {
+    padding: 0 !important;
+  }
+  
+  /* Remove excess margin after last user */
+  .contact-list-scrollable > *:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* ===== MOBILE VERSION STYLES ===== */
+@media (max-width: 1023px) {
+  /* Mobile sidebar */
+  .sidebar-icon {
+    @apply flex items-center justify-center h-10 w-10 mt-2 mb-2 mx-auto rounded-full 
+    hover:bg-white hover:text-primary transition-all duration-300 ease-linear cursor-pointer;
+  }
+  
+  .sidebar-tooltip {
+    @apply absolute w-auto p-2 m-2 min-w-max left-12 rounded-md shadow-md
+    text-white bg-gray-900 text-xs font-bold transition-all duration-100 
+    scale-0 origin-left;
+  }
+  
+  /* Mobile header spacing */
+  .chat-header {
+    @apply pt-14;
+  }
+  
+  /* Full height containers for mobile */
+  .mobile-full-height {
+    height: 100vh;
+  }
+  
+  /* Prevent overflow issues */
+  .mobile-navigation-open {
+    overflow: hidden;
+  }
+  
+  /* Content area adjustments */
+  .content-area-mobile {
+    @apply pt-14;
+    height: calc(100vh - 56px);
+  }
+  
+  /* Fixed header offset */
+  .fixed-header-offset {
+    top: 56px;
+  }
+}
+
+/* More specific mobile breakpoints */
 @media (max-width: 768px) {
   .chat-message {
     max-width: 85%;
   }
   
   .message-container {
-    padding: 10px;
+    padding: 8px;
   }
   
   .chat-header {
-    padding: 10px 12px;
+    padding: 8px 10px;
+  }
+  
+  /* Compact message bubbles for mobile */
+  .message-from-me, .message-to-me {
+    @apply p-2;
+    font-size: 0.95rem;
+  }
+  
+  .message-group-mobile {
+    @apply my-1;
+  }
+  
+  .date-separator {
+    @apply my-2 py-1;
   }
 }
 
 @media (max-width: 640px) {
   .message-input-container {
-    padding: 8px;
+    padding: 6px;
   }
   
   .message-input {
@@ -97,31 +259,109 @@ body {
     width: 120px;
   }
   
+  .user-item-mobile {
+    @apply py-2;
+  }
+  
   .user-avatar-mobile {
     width: 32px;
     height: 32px;
   }
   
   .group-list-mobile {
-    max-height: 200px;
+    max-height: 180px;
   }
 }
 
-/* Add scrollbar styles */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* ===== TRANSITIONS AND ANIMATIONS ===== */
+/* Mobile Layout Transitions */
+.slide-transition {
+  transition: transform 0.3s ease-in-out;
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+/* Mobile Navigation Backdrop */
+.mobile-backdrop {
+  @apply fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden;
+  transition: opacity 0.3s ease-in-out;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #c4c4c4;
-  border-radius: 3px;
+/* Mobile Panel Styles */
+.mobile-panel {
+  @apply fixed inset-0 bg-white z-30 pt-14;
+  transition: transform 0.3s ease-in-out;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
+/* Slide animations */
+.slide-in-left {
+  animation: slideInLeft 0.3s forwards;
+}
+
+.slide-out-left {
+  animation: slideOutLeft 0.3s forwards;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s forwards;
+}
+
+.slide-out-right {
+  animation: slideOutRight 0.3s forwards;
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideOutLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+/* Fade animations */
+.fade-in {
+  animation: fadeIn 0.2s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.2s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ===== Z-INDEX MANAGEMENT ===== */
+.z-sidebar { z-index: 40; }
+.z-contacts { z-index: 30; }
+.z-profile { z-index: 50; }
+.z-backdrop { z-index: 20; }
+.z-header { z-index: 45; }
+
+/* ===== TOUCH TARGETS FOR MOBILE ===== */
+.mobile-touch-target {
+  @apply min-h-10 min-w-10;
+}
+
+/* ===== PREVENT SCROLL WHEN MODALS OPEN ===== */
+.prevent-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
 }
