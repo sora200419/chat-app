@@ -1,3 +1,4 @@
+// src\App.tsx
 import React, { useState } from 'react';
 import { ChatProvider } from './context/ChatProvider';
 import Sider from './components/Sider';

@@ -1,3 +1,4 @@
+// src\components\Chat\ChatInput.tsx
 import React, { useState } from 'react';
 import {
   PaperClipIcon,
