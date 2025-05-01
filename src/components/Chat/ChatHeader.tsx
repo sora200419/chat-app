@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  MagnifyingGlassIcon,
   PhoneIcon,
   VideoCameraIcon,
+  MagnifyingGlassIcon,
   EllipsisVerticalIcon
 } from '@heroicons/react/24/solid';
 import { useChat } from '../../context/useChatHook';
 
 interface ChatHeaderProps {
-  toggleProfile?: () => void;
+  toggleProfile?: (() => void) | undefined;
 }
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({ toggleProfile }) => {
@@ -19,18 +19,15 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ toggleProfile }) => {
   };
 
   return (
-    <div className='flex flex-col shadow-sm'>
-      {/* Main header with current user name */}
+    <div className='flex flex-col shadow-sm chat-header'>
+      {/* Main header */}
       <div className='p-4 border-b bg-white flex items-center justify-between'>
         <h2 className='text-xl font-bold'>Chat</h2>
-        {toggleProfile && (
-          <button 
-            className='text-primary hover:text-primary-light text-sm'
-            onClick={toggleProfile}
-          >
+        <div>
+          <span className='text-primary hover:text-primary-light text-sm'>
             Add New Profile
-          </button>
-        )}
+          </span>
+        </div>
       </div>
       
       {/* Subheader with selected user information */}
@@ -49,9 +46,6 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ toggleProfile }) => {
                   {(selectedUser.name?.[0] || selectedUser.username?.[0] || 'U').toUpperCase()}
                 </div>
               )}
-              {selectedUser.status === 'online' && (
-                <div className='absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white'></div>
-              )}
             </div>
             <div>
               <h3 className='text-base font-medium text-gray-800'>
@@ -64,12 +58,12 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ toggleProfile }) => {
           </div>
 
           {/* Action buttons */}
-          <div className='flex items-center space-x-4'>
+          <div className='flex items-center space-x-3'>
             <div className='relative'>
               <input 
                 type='text' 
                 placeholder='Search messages...'
-                className='py-1 pl-8 pr-4 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary'
+                className='py-1 pl-8 pr-3 border rounded-md text-sm w-32 search-field-mobile focus:outline-none focus:ring-1 focus:ring-primary'
                 value={messageSearchTerm}
                 onChange={handleSearch}
               />
@@ -81,9 +75,14 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ toggleProfile }) => {
             <button className='text-gray-500 hover:text-primary'>
               <VideoCameraIcon className='h-5 w-5' />
             </button>
-            <button className='text-gray-500 hover:text-primary'>
-              <EllipsisVerticalIcon className='h-5 w-5' />
-            </button>
+            {toggleProfile && (
+              <button 
+                className='text-gray-500 hover:text-primary'
+                onClick={toggleProfile}
+              >
+                <EllipsisVerticalIcon className='h-5 w-5' />
+              </button>
+            )}
           </div>
         </div>
       )}

@@ -1,12 +1,11 @@
 // src/components/Chat/index.tsx
-
 import React from 'react';
 import ChatHeader from './ChatHeader';
 import ChatMessages from './ChatMessages';
 import ChatInput from './ChatInput';
 
 interface ChatProps {
-  toggleProfile?: () => void;
+  toggleProfile?: (() => void) | undefined;
 }
 
 const Chat: React.FC<ChatProps> = ({ toggleProfile }) => {

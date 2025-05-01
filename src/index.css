@@ -25,22 +25,22 @@ body {
 
 .chat-message {
   @apply p-3 rounded-lg shadow-sm;
-  max-width: 80%; /* Limit width */
-  word-break: break-word; /* Force word breaking */
-  width: fit-content; /* Ensure width adapts to content */
-  margin-bottom: 4px; /* Space between messages */
+  max-width: 80%;
+  word-break: break-word;
+  width: fit-content;
+  margin-bottom: 4px;
 }
 
 .message-from-me {
   @apply bg-primary text-white rounded-tl-lg rounded-tr-lg rounded-bl-lg;
-  margin-left: auto; /* Push to right side */
-  border-bottom-right-radius: 4px; /* Specific corner rounding */
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
 }
 
 .message-to-me {
   @apply bg-white text-gray-800 rounded-tr-lg rounded-br-lg rounded-bl-lg shadow-sm;
   border: 1px solid #e5e7eb;
-  border-top-left-radius: 4px; /* Specific corner rounding */
+  border-top-left-radius: 4px;
 }
 
 /* Style for timestamps */
@@ -56,6 +56,55 @@ body {
 
 .message-timestamp.to-me {
   color: #6b7280;
+}
+
+/* User avatar styling */
+.user-avatar {
+  @apply w-8 h-8 rounded-full;
+  min-width: 2rem;
+}
+
+/* Chat header styling */
+.chat-header {
+  padding: 12px 16px;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .chat-message {
+    max-width: 85%;
+  }
+  
+  .message-container {
+    padding: 10px;
+  }
+  
+  .chat-header {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .message-input-container {
+    padding: 8px;
+  }
+  
+  .message-input {
+    min-height: 40px;
+  }
+  
+  .search-field-mobile {
+    width: 120px;
+  }
+  
+  .user-avatar-mobile {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .group-list-mobile {
+    max-height: 200px;
+  }
 }
 
 /* Add scrollbar styles */

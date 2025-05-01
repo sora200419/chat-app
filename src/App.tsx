@@ -6,7 +6,8 @@ import Groups from './components/Groups';
 import Chat from './components/Chat';
 import UserProfile from './components/UserProfile';
 import ErrorBoundary from './components/ErrorBoundary';
-import { XMarkIcon, Bars3Icon, UserIcon } from '@heroicons/react/24/solid';
+import { XMarkIcon, Bars3Icon } from '@heroicons/react/24/solid';
+// Removed unused icons
 
 const App: React.FC = () => {
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
@@ -79,6 +80,7 @@ const App: React.FC = () => {
                 lg:block
               `}
             >
+              {/* Pass toggleProfile function instead of null */}
               <Chat toggleProfile={toggleProfile} />
             </div>
 
@@ -90,21 +92,6 @@ const App: React.FC = () => {
               `}
             >
               <UserProfile onClose={toggleProfile} />
-            </div>
-
-            {/* Profile Toggle Button - Mobile only */}
-            <div className="fixed bottom-4 right-4 lg:hidden z-30">
-              <button
-                className="p-3 bg-primary text-white rounded-full shadow-lg"
-                onClick={toggleProfile}
-                aria-label="Toggle user profile"
-              >
-                {showProfile ? (
-                  <XMarkIcon className="h-6 w-6" />
-                ) : (
-                  <UserIcon className="h-6 w-6" />
-                )}
-              </button>
             </div>
           </div>
         </div>

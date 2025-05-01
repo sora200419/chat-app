@@ -17,17 +17,6 @@ interface GroupedMessages {
   [date: string]: DisplayMessage[][];
 }
 
-const ImageAttachment = ({ url }: { url: string }) => {
-  return (
-    <a href={url} target="_blank" rel="noopener noreferrer" className="block">
-      <img 
-        src={url} 
-        alt="Image attachment" 
-        className="max-w-full max-h-[200px] rounded-md object-cover"
-      />
-    </a>
-  );
-};
 
 const ChatMessageGroup = ({ 
   messages, 
@@ -41,34 +30,37 @@ const ChatMessageGroup = ({
   const message = messages[0];
   
   return (
-    <div className={`flex my-3 ${isFromMe ? 'justify-end' : 'justify-start'}`}>
+    <div className={`flex my-2 ${isFromMe ? 'justify-end' : 'justify-start'} message-container`}>
       {!isFromMe && (
-        <div className="relative">
+        <div className="relative mr-2 mt-1 flex-shrink-0">
           <img 
             src={message.senderAvatar || `https://ui-avatars.com/api/?name=${message.senderName || 'User'}`} 
             alt="avatar" 
-            className='w-8 h-8 rounded-full mr-2 self-end'
+            className="user-avatar"
           />
         </div>
       )}
-      <div className="flex flex-col max-w-[70%]">
+      <div className="flex flex-col max-w-full">
         {messages.map((msg, idx) => (
-          <div 
-            key={idx} 
-            className={`chat-message ${isFromMe ? 'message-from-me' : 'message-to-me'} ${idx > 0 ? 'mt-1' : ''}`}
-          >
-            {msg.content}
+          <div key={idx} className="flex flex-col mb-1">
+            <div 
+              className={`chat-message ${isFromMe ? 'message-from-me' : 'message-to-me'}`}
+            >
+              {msg.content}
+              
+              {msg.image && (
+                <div className='mt-2'>
+                  <img 
+                    src={msg.image} 
+                    alt="Image attachment" 
+                    className="max-w-full max-h-[150px] rounded-md object-cover"
+                  />
+                </div>
+              )}
+            </div>
             
-            {/* Display image if available */}
-            {msg.image && (
-              <div className='mt-2'>
-                <ImageAttachment url={msg.image} />
-              </div>
-            )}
-            
-            {/* Display timestamp only for the last message in the group */}
             {idx === messages.length - 1 && (
-              <div className={`text-xs mt-1 ${isFromMe ? 'text-gray-300 text-right' : 'text-gray-500'}`}>
+              <div className={`message-timestamp ${isFromMe ? 'from-me ml-auto' : 'to-me'}`}>
                 {msg.timestamp}
               </div>
             )}
@@ -76,8 +68,8 @@ const ChatMessageGroup = ({
         ))}
       </div>
       {isFromMe && (
-        <div className="relative ml-2 self-end">
-          <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs">
+        <div className="relative ml-2 mt-1 flex-shrink-0">
+          <div className="user-avatar bg-primary text-white flex items-center justify-center text-xs">
             US
           </div>
         </div>
@@ -164,7 +156,9 @@ const ChatMessages: React.FC = () => {
   }
 
   // Process messages for display
-  const displayMessages = filteredMessages.map((message) => {
+  const displayMessages = filteredMessages
+  .filter(message => message.message !== "Chat sent")
+  .map((message) => {
     // Format timestamp from Unix timestamp
     let formattedTime;
     try {
