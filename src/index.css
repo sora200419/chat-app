@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom utility classes */
+.sidebar-icon {
+  @apply flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto rounded-full 
+  hover:bg-white hover:text-primary transition-all duration-300 ease-linear cursor-pointer;
+}
+
+.sidebar-tooltip {
+  @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
+  text-white bg-gray-900 text-xs font-bold transition-all duration-100 
+  scale-0 origin-left;
+}
+
+.chat-message {
+  @apply p-3 rounded-lg shadow-sm;
+  max-width: 80%; /* Limit width */
+  word-break: break-word; /* Force word breaking */
+  width: fit-content; /* Ensure width adapts to content */
+  margin-bottom: 4px; /* Space between messages */
+}
+
+.message-from-me {
+  @apply bg-primary text-white rounded-tl-lg rounded-tr-lg rounded-bl-lg;
+  margin-left: auto; /* Push to right side */
+  border-bottom-right-radius: 4px; /* Specific corner rounding */
+}
+
+.message-to-me {
+  @apply bg-white text-gray-800 rounded-tr-lg rounded-br-lg rounded-bl-lg shadow-sm;
+  border: 1px solid #e5e7eb;
+  border-top-left-radius: 4px; /* Specific corner rounding */
+}
+
+/* Style for timestamps */
+.message-timestamp {
+  font-size: 0.65rem;
+  margin-top: 2px;
+}
+
+.message-timestamp.from-me {
+  text-align: right;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.message-timestamp.to-me {
+  color: #6b7280;
+}
+
+/* Add scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
+}
