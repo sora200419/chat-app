@@ -19,18 +19,6 @@ const UserList: React.FC = () => {
     setUserSearchTerm(e.target.value);
   };
 
-  // Mock unread counts for demonstration
-  const getUnreadCount = (userId: number): number => {
-    // This would normally come from your API or state
-    const counts: Record<number, number> = {
-      1: 2,
-      2: 0,
-      3: 1,
-      4: 0
-    };
-    return counts[userId] || 0;
-  };
-
   return (
     <div className='border-r overflow-hidden flex flex-col bg-white h-full'>
       {/* Search section - reduce bottom padding */}
@@ -81,7 +69,6 @@ const UserList: React.FC = () => {
               onClick={selectUser}
               lastMessage={user.lastMessage}
               timestamp={user.lastMessageTime}
-              unreadCount={getUnreadCount(user.id)}
             />
           ))
         )}
